@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 策略产品能力展示 — 向弘源</title>
+<style>
+  :root {
+    --primary: #2D6AE0;
+    --primary-dark: #1B4FA0;
+    --accent: #00D4AA;
+    --bg: #0A0F1C;
+    --bg-card: #111827;
+    --bg-card-hover: #1A2332;
+    --text: #E8ECF1;
+    --text-secondary: #8899AA;
+    --border: #1E2A3A;
+    --gradient-1: linear-gradient(135deg, #2D6AE0, #00D4AA);
+    --gradient-2: linear-gradient(135deg, #6366F1, #2D6AE0);
+    --gradient-3: linear-gradient(135deg, #00D4AA, #10B981);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* Hero Section */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 2rem;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(45,106,224,0.15), transparent),
+      radial-gradient(ellipse 60% 50% at 70% 60%, rgba(0,212,170,0.1), transparent);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(45,106,224,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(45,106,224,0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black, transparent);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 800px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    background: rgba(45,106,224,0.1);
+    border: 1px solid rgba(45,106,224,0.3);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    letter-spacing: 0.5px;
+  }
+
+  .hero-badge .dot {
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 .gradient-text {
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-subtitle {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-stat {
+    text-align: center;
+  }
+
+  .hero-stat .number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-stat .label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  .scroll-indicator .arrow {
+    width: 20px; height: 20px;
+    border-right: 2px solid var(--text-secondary);
+    border-bottom: 2px solid var(--text-secondary);
+    transform: rotate(45deg);
+  }
+
+  /* Section Common */
+  section {
+    padding: 6rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 20px; height: 2px;
+    background: var(--accent);
+  }
+
+  .section-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .section-desc {
+    color: var(--text-secondary);
+    max-width: 650px;
+    margin-bottom: 3rem;
+    font-size: 1.05rem;
+  }
+
+  /* JD Match Section */
+  .jd-match {
+    padding-top: 4rem;
+  }
+
+  .jd-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .jd-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .jd-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gradient-1);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .jd-card:hover::before { transform: scaleX(1); }
+  .jd-card:hover {
+    background: var(--bg-card-hover);
+    border-color: rgba(45,106,224,0.3);
+    transform: translateY(-4px);
+  }
+
+  .jd-card-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .jd-card-icon.blue { background: rgba(45,106,224,0.15); }
+  .jd-card-icon.green { background: rgba(0,212,170,0.15); }
+  .jd-card-icon.purple { background: rgba(99,102,241,0.15); }
+  .jd-card-icon.orange { background: rgba(251,146,60,0.15); }
+  .jd-card-icon.pink { background: rgba(236,72,153,0.15); }
+
+  .jd-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    color: var(--text);
+  }
+
+  .jd-card .jd-req {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    font-style: italic;
+  }
+
+  .jd-card .match-detail {
+    font-size: 0.9rem;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .jd-card .match-detail strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .match-bar {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .match-bar .bar {
+    flex: 1;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .match-bar .bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--gradient-1);
+    width: 0%;
+    transition: width 1.5s ease;
+  }
+
+  .match-bar .bar-label {
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* Project Timeline */
+  .projects {
+    position: relative;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 3rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--primary), var(--accent));
+    opacity: 0.3;
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+  }
+
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -3rem;
+    top: 0.5rem;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 3px solid var(--primary);
+    z-index: 1;
+    transition: all 0.3s ease;
+  }
+
+  .timeline-item:hover .timeline-dot {
+    background: var(--primary);
+    box-shadow: 0 0 20px rgba(45,106,224,0.4);
+  }
+
+  .timeline-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+  }
+
+  .timeline-card:hover {
+    background: var(--bg-card-hover);
+    border-color: rgba(45,106,224,0.3);
+  }
+
+  .timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .timeline-header h3 {
+    font-size: 1.2rem;
+  }
+
+  .timeline-tag {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .tag-llm { background: rgba(139,92,246,0.15); color: #A78BFA; }
+  .tag-rag { background: rgba(45,106,224,0.15); color: #60A5FA; }
+  .tag-agent { background: rgba(0,212,170,0.15); color: #34D399; }
+  .tag-data { background: rgba(251,146,60,0.15); color: #FB923C; }
+  .tag-strategy { background: rgba(236,72,153,0.15); color: #F472B6; }
+  .tag-patent { background: rgba(250,204,21,0.15); color: #FBBF24; }
+
+  .timeline-arch {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 1rem;
+    background: rgba(45,106,224,0.05);
+    border: 1px solid rgba(45,106,224,0.1);
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    font-family: "SF Mono", "Fira Code", monospace;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  .timeline-arch .arch-icon { font-size: 1.2rem; }
+
+  .timeline-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .result-item {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(0,212,170,0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(0,212,170,0.1);
+  }
+
+  .result-item .value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .result-item .desc {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+
+  /* Workflow Demo */
+  .workflow-section {
+    padding: 6rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .workflow-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    overflow: hidden;
+  }
+
+  .workflow-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .workflow-tab {
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+  }
+
+  .workflow-tab:hover {
+    border-color: rgba(45,106,224,0.3);
+    color: var(--text);
+  }
+
+  .workflow-tab.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+  }
+
+  .workflow-panel {
+    display: none;
+  }
+
+  .workflow-panel.active {
+    display: block;
+    animation: fadeIn 0.4s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .workflow-flow {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    overflow-x: auto;
+    padding: 1rem 0;
+  }
+
+  .flow-step {
+    flex-shrink: 0;
+    width: 180px;
+    padding: 1.5rem;
+    background: rgba(45,106,224,0.05);
+    border: 1px solid rgba(45,106,224,0.15);
+    border-radius: 12px;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .flow-step:hover {
+    background: rgba(45,106,224,0.1);
+    border-color: var(--primary);
+    transform: translateY(-4px);
+  }
+
+  .flow-step .step-icon {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .flow-step .step-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+
+  .flow-step .step-desc {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .flow-arrow {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 0.5rem;
+    color: var(--primary);
+    font-size: 1.2rem;
+    margin-top: 2rem;
+  }
+
+  /* Skills Radar */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .skills-grid { grid-template-columns: 1fr; }
+  }
+
+  .skill-category {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+  }
+
+  .skill-category h3 {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .skill-item {
+    margin-bottom: 1.2rem;
+  }
+
+  .skill-item:last-child { margin-bottom: 0; }
+
+  .skill-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+
+  .skill-name {
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+
+  .skill-level {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+  }
+
+  .skill-bar {
+    height: 8px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .skill-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: var(--gradient-1);
+    width: 0%;
+    transition: width 1.2s ease;
+  }
+
+  /* Data Showcase */
+  .data-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .data-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .data-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-1);
+  }
+
+  .data-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(45,106,224,0.3);
+  }
+
+  .data-card .big-number {
+    font-size: 3rem;
+    font-weight: 700;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+  }
+
+  .data-card .unit {
+    font-size: 1rem;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .data-card .data-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+  }
+
+  .data-card .data-detail {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+  /* Closing / CTA */
+  .closing {
+    text-align: center;
+    padding: 8rem 2rem;
+    position: relative;
+  }
+
+  .closing-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 50%, rgba(45,106,224,0.1), transparent);
+  }
+
+  .closing-content {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .closing h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    margin-bottom: 1.5rem;
+  }
+
+  .closing p {
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    font-size: 1.05rem;
+  }
+
+  .contact-grid {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 0.9rem;
+    color: var(--text);
+    transition: all 0.3s ease;
+  }
+
+  .contact-item:hover {
+    border-color: var(--primary);
+    background: var(--bg-card-hover);
+  }
+
+  .contact-item .icon {
+    font-size: 1.2rem;
+  }
+
+  /* Navigation */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(20px);
+    background: rgba(10,15,28,0.8);
+    border-bottom: 1px solid rgba(30,42,58,0.5);
+    transition: all 0.3s ease;
+  }
+
+  .nav-logo {
+    font-size: 1rem;
+    font-weight: 700;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .nav-link {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    cursor: pointer;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: var(--text);
+  }
+
+  /* Animations */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Counter animation */
+  .counter { display: inline-block; }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border), transparent);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero-stats { gap: 1.5rem; }
+    .hero-stat .number { font-size: 2rem; }
+    .timeline { padding-left: 2rem; }
+    .timeline-dot { left: -2rem; }
+    .workflow-flow { flex-direction: column; align-items: stretch; }
+    .flow-step { width: 100%; }
+    .flow-arrow { transform: rotate(90deg); margin: 0.5rem auto; }
+    .nav-links { display: none; }
+    .skills-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Typing animation for architecture */
+  .typing {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid var(--accent);
+    animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+    display: inline-block;
+    max-width: 100%;
+  }
+
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: var(--accent) }
+  }
+
+  /* Prompt showcase */
+  .prompt-box {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    font-family: "SF Mono", "Fira Code", monospace;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-top: 1rem;
+    position: relative;
+  }
+
+  .prompt-box .prompt-label {
+    position: absolute;
+    top: -10px;
+    left: 16px;
+    padding: 2px 10px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.7rem;
+    color: var(--accent);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+  }
+
+  .prompt-box .kw { color: #A78BFA; }
+  .prompt-box .str { color: #34D399; }
+  .prompt-box .var { color: #60A5FA; }
+  .prompt-box .cmt { color: #4B5563; }
+
+  /* Tab content for projects */
+  .project-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .project-tab {
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+  }
+
+  .project-tab:hover {
+    border-color: rgba(45,106,224,0.3);
+    color: var(--text);
+  }
+
+  .project-tab.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+  }
+
+  .project-panel {
+    display: none;
+  }
+
+  .project-panel.active {
+    display: block;
+    animation: fadeIn 0.4s ease;
+  }
+
+  .project-detail {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+  }
+
+  .project-detail h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .project-detail .project-context {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .feature-list li {
+    display: flex;
+    gap: 12px;
+    padding: 1rem;
+    background: rgba(45,106,224,0.03);
+    border-radius: 10px;
+    border: 1px solid rgba(45,106,224,0.08);
+  }
+
+  .feature-list .feature-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .feature-list .feature-content h4 {
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+  }
+
+  .feature-list .feature-content p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">HY.AI</div>
+  <div class="nav-links">
+    <a class="nav-link" onclick="scrollToSection('match')">JD 匹配</a>
+    <a class="nav-link" onclick="scrollToSection('projects')">项目实战</a>
+    <a class="nav-link" onclick="scrollToSection('workflow')">Agent 设计</a>
+    <a class="nav-link" onclick="scrollToSection('skills')">技能矩阵</a>
+    <a class="nav-link" onclick="scrollToSection('data')">数据成果</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      AI 策略产品经理 · 开放机会
+    </div>
+    <h1>
+      用 AI 重构<br><span class="gradient-text">复杂业务决策</span>
+    </h1>
+    <p class="hero-subtitle">
+      8 年 B 端产品经验，将 LLM / RAG / Agent 技术落地于真实业务场景，<br>累计实现降本 2.41 亿元、增收 9,700 万元
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="number"><span class="counter" data-target="8">0</span>年</div>
+        <div class="label">B 端产品经验</div>
+      </div>
+      <div class="hero-stat">
+        <div class="number"><span class="counter" data-target="2.41">0</span>亿</div>
+        <div class="label">累计降本</div>
+      </div>
+      <div class="hero-stat">
+        <div class="number"><span class="counter" data-target="9700">0</span>万</div>
+        <div class="label">累计增收</div>
+      </div>
+      <div class="hero-stat">
+        <div class="number"><span class="counter" data-target="3">0</span>项</div>
+        <div class="label">AI 落地项目</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>向下滚动</span>
+    <div class="arrow"></div>
+  </div>
+</section>
+
+<!-- JD Match -->
+<section class="jd-match fade-in" id="match">
+  <div class="section-label">JD Match</div>
+  <h2 class="section-title">为什么我匹配 ima 的需求</h2>
+  <p class="section-desc">
+    逐条拆解岗位要求，展示对应的实战经验与能力证明
+  </p>
+
+  <div class="jd-grid">
+    <div class="jd-card">
+      <div class="jd-card-icon blue">🧠</div>
+      <h3>AI 能力建设与落地</h3>
+      <p class="jd-req">"负责 ima 的 AI 能力建设，探索结合 AI 技术更好满足用户需求的方案"</p>
+      <div class="match-detail">
+        基于 <strong>LLM + RAG + Agent</strong> 架构搭建智能采销系统，将 137 个站点的发运标准沉淀为知识库，设计 Agent 任务拆解 → 知识检索 → 方案生成 → 人工确认的完整协同流程，方案采纳率 <strong>85%+</strong>，年增收 1,843 万元。
+      </div>
+      <div class="match-bar">
+        <div class="bar"><div class="bar-fill" data-width="95"></div></div>
+        <span class="bar-label">95%</span>
+      </div>
+    </div>
+
+    <div class="jd-card">
+      <div class="jd-card-icon green">📐</div>
+      <h3>场景定义与量化评估</h3>
+      <p class="jd-req">"定义具体场景下的能力理想态，形成可执行可量化的评估标准"</p>
+      <div class="match-detail">
+        搭建 <strong>数据指标体系</strong>（方案采纳率 / 人工修改率 / 置信度评分 / 执行差异归因），用数据驱动 AI 产品迭代。调度系统为每条算法方案附带"推荐理由"与"置信度评分"，帮助业务人员理解 AI 逻辑、建立信任。
+      </div>
+      <div class="match-bar">
+        <div class="bar"><div class="bar-fill" data-width="92"></div></div>
+        <span class="bar-label">92%</span>
+      </div>
+    </div>
+
+    <div class="jd-card">
+      <div class="jd-card-icon purple">⚡</div>
+      <h3>LLM / Agent / RAG 技术理解</h3>
+      <p class="jd-req">"了解 LLM/Agent/RAG/多模态的相关技术原理和进展"</p>
+      <div class="match-detail">
+        深度理解大模型能力边界，能将复杂业务拆解为<strong>"规则确定型"</strong>（运筹优化 / 规则引擎）与<strong>"规则模糊型"</strong>（LLM Agent / 机器学习）问题，分别采用最优技术路径。熟练使用 Prompt Engineering、Coze 等工作流搭建工具。
+      </div>
+      <div class="match-bar">
+        <div class="bar"><div class="bar-fill" data-width="90"></div></div>
+        <span class="bar-label">90%</span>
+      </div>
+    </div>
+
+    <div class="jd-card">
+      <div class="jd-card-icon orange">📊</div>
+      <h3>数据意识与洞察力</h3>
+      <p class="jd-req">"良好的数据意识和洞察力，善于从数据中发现问题"</p>
+      <div class="match-detail">
+        搭建多维度<strong>数据归因模型</strong>，成本波动自动归因与异常预警，日均分析耗时从 3h → 0.5h。设计 24 类资源标签构建供应商画像，月均输出 1,000+ 家供应商绩效考核。熟练使用 SQL / Python / Tableau。
+      </div>
+      <div class="match-bar">
+        <div class="bar"><div class="bar-fill" data-width="93"></div></div>
+        <span class="bar-label">93%</span>
+      </div>
+    </div>
+
+    <div class="jd-card">
+      <div class="jd-card-icon pink">🚀</div>
+      <h3>从 0 到 1 + 快速落地</h3>
+      <p class="jd-req">"快速推动落地，适应快节奏的工作方式"</p>
+      <div class="match-detail">
+        主导 <strong>3 个从 0 到 1</strong> 的产品体系搭建（智能采销 / 交易平台 / 调度系统），报价响应从线下 3 天 → <strong>15 秒</strong>自动输出。以第一发明人申请国家发明专利，专利号 2022107058987。
+      </div>
+      <div class="match-bar">
+        <div class="bar"><div class="bar-fill" data-width="96"></div></div>
+        <span class="bar-label">96%</span>
+      </div>
+    </div>
+
+    <div class="jd-card">
+      <div class="jd-card-icon blue">🔬</div>
+      <h3>行业趋势与创新探索</h3>
+      <p class="jd-req">"跟踪国内外行业趋势及相关产品动态，积极探索产品创新"</p>
+      <div class="match-detail">
+        持续关注 AI Agent / 多模态前沿，熟练使用 <strong>Claude Code / v0 / Coze / Gemini</strong> 等工具链。将调度策略从"陆转航"扩展到"陆转铁/空转铁"多场景快速复用，沉淀策略知识库。
+      </div>
+      <div class="match-bar">
+        <div class="bar"><div class="bar-fill" data-width="88"></div></div>
+        <span class="bar-label">88%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Projects -->
+<section class="projects fade-in" id="projects">
+  <div class="section-label">Projects</div>
+  <h2 class="section-title">AI 策略产品实战</h2>
+  <p class="section-desc">
+    三个核心项目的技术架构、产品设计与业务成果
+  </p>
+
+  <div class="project-tabs">
+    <button class="project-tab active" onclick="switchProject(0)">智能采销 Agent</button>
+    <button class="project-tab" onclick="switchProject(1)">智能调度系统</button>
+    <button class="project-tab" onclick="switchProject(2)">供应商风控</button>
+  </div>
+
+  <div class="project-panel active" id="project-0">
+    <div class="project-detail">
+      <h3>智能采销产品体系 — LLM + RAG + Agent 落地实践</h3>
+      <p class="project-context">从 0 到 1 搭建数字化采销平台，打通"资源识别 → 定价 → 报价 → 成交"全链路</p>
+      <ul class="feature-list">
+        <li>
+          <span class="feature-icon">🤖</span>
+          <div class="feature-content">
+            <h4>LLM Agent 智能报价助手</h4>
+            <p>基于 LLM + RAG + Agent 架构，沉淀发运标准知识库（137 个站点），设计"用户需求输入 → Agent 拆解任务 → 检索知识库生成方案 → 人工确认执行"的协同流程。持续跟踪方案采纳率与人工修改率并迭代优化。</p>
+          </div>
+        </li>
+        <li>
+          <span class="feature-icon">⚙️</span>
+          <div class="feature-content">
+            <h4>规则引擎驱动的自动报价系统</h4>
+            <p>将历史交易数据、航线成本、市场运价抽象为定价模型，搭建规则引擎驱动的自动报价系统。报价响应从 3 天缩短至 15 秒内自动输出，支持各 BU 实时查价、一键订舱。</p>
+          </div>
+        </li>
+        <li>
+          <span class="feature-icon">🔗</span>
+          <div class="feature-content">
+            <h4>多因子组合报价模型</h4>
+            <p>陆运+航空组合场景涉及多因子交叉（重量/时效/成本等），构建多因子组合报价模型，支持按不同计费维度自动匹配最优方案，覆盖全网 825 个流向（覆盖率 75%）。</p>
+          </div>
+        </li>
+      </ul>
+      <div class="timeline-results">
+        <div class="result-item">
+          <div class="value">85%+</div>
+          <div class="desc">Agent 方案采纳率</div>
+        </div>
+        <div class="result-item">
+          <div class="value">15s</div>
+          <div class="desc">报价响应时间</div>
+        </div>
+        <div class="result-item">
+          <div class="value">8,700万</div>
+          <div class="desc">年度总增收</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-panel" id="project-1">
+    <div class="project-detail">
+      <h3>多式联运智能调度系统 — 算法产品化与人机协同</h3>
+      <p class="project-context">从 0 到 1 搭建智能调度平台，将策略能力沉淀为可复用的产品资产（国家发明专利）</p>
+      <ul class="feature-list">
+        <li>
+          <span class="feature-icon">🎯</span>
+          <div class="feature-content">
+            <h4>多目标优化决策引擎</h4>
+            <p>构建"资需匹配 + 多目标优化（时效/成本/策略占舱）"算法模型，每月自动输出 100+ 条转运推荐方案。关键设计：每条方案附带"推荐理由"与"置信度评分"，帮助调度人员理解算法逻辑、建立信任。</p>
+          </div>
+        </li>
+        <li>
+          <span class="feature-icon">📡</span>
+          <div class="feature-content">
+            <h4>智能监控与根因分析</h4>
+            <p>搭建"推荐-落地-复盘"全流程监控闭环，动态预测预警时效/成本异常，通过执行差异分析自动定位根因（算法偏差/执行偏差/外部干扰）。</p>
+          </div>
+        </li>
+        <li>
+          <span class="feature-icon">🔄</span>
+          <div class="feature-content">
+            <h4>模型自学习与场景迁移</h4>
+            <p>基于历史运营数据与用户采纳行为（采纳率/修改率/驳回率）持续迭代算法模型，动态适配航班延误/取消、天气影响等外部扰动场景，实现从"陆转航"到"陆转铁/空转铁"多场景能力快速复用。</p>
+          </div>
+        </li>
+      </ul>
+      <div class="timeline-results">
+        <div class="result-item">
+          <div class="value">100+</div>
+          <div class="desc">月均推荐方案</div>
+        </div>
+        <div class="result-item">
+          <div class="value">专利</div>
+          <div class="desc">第一发明人</div>
+        </div>
+        <div class="result-item">
+          <div class="value">3场景</div>
+          <div class="desc">能力迁移复用</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-panel" id="project-2">
+    <div class="project-detail">
+      <h3>供应商风控与成本诊断 — 数据驱动的风险治理</h3>
+      <p class="project-context">构建平台化采购体系，实现"集中寻源 → 统一管控 → 数据复盘"的闭环</p>
+      <ul class="feature-list">
+        <li>
+          <span class="feature-icon">🛡️</span>
+          <div class="feature-content">
+            <h4>多维度风险识别体系</h4>
+            <p>设计同 IP 预警 / 关联关系图谱 / 财务风险识别，建立分层审批流，风险识别准确率从不足 50% 提升至 95%+。</p>
+          </div>
+        </li>
+        <li>
+          <span class="feature-icon">📋</span>
+          <div class="feature-content">
+            <h4>供应商智能画像与绩效考核</h4>
+            <p>自动化构建 24 类资源标签形成供应商智能画像；月均输出 1,000+ 家供应商绩效考核并输出诊断报告与改善建议，上线 3 个月履约质量提升 30%。</p>
+          </div>
+        </li>
+        <li>
+          <span class="feature-icon">📈</span>
+          <div class="feature-content">
+            <h4>智能成本诊断</h4>
+            <p>搭建多维度数据归因模型，成本波动自动归因与异常预警，日均分析耗时从 3 小时缩短至 0.5 小时，联动运筹算法追踪改善效果。</p>
+          </div>
+        </li>
+      </ul>
+      <div class="timeline-results">
+        <div class="result-item">
+          <div class="value">95%+</div>
+          <div class="desc">风险识别准确率</div>
+        </div>
+        <div class="result-item">
+          <div class="value">1,000+</div>
+          <div class="desc">月均考核供应商</div>
+        </div>
+        <div class="result-item">
+          <div class="value">1.91亿</div>
+          <div class="desc">年度降本总额</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Workflow / Agent Design -->
+<section class="workflow-section fade-in" id="workflow">
+  <div class="section-label">Agent Design</div>
+  <h2 class="section-title">Agent 工作流设计能力</h2>
+  <p class="section-desc">
+    展示实际落地的 Agent 架构设计 — 以智能采销 Agent 为例
+  </p>
+
+  <div class="workflow-container">
+    <div class="workflow-tabs">
+      <button class="workflow-tab active" onclick="switchWorkflow(0)">Agent 架构</button>
+      <button class="workflow-tab" onclick="switchWorkflow(1)">Prompt 设计</button>
+      <button class="workflow-tab" onclick="switchWorkflow(2)">评估体系</button>
+    </div>
+
+    <div class="workflow-panel active" id="workflow-0">
+      <div class="workflow-flow">
+        <div class="flow-step">
+          <div class="step-icon">👤</div>
+          <div class="step-title">用户需求输入</div>
+          <div class="step-desc">自然语言描述发运需求：货物类型、重量、起止地、时效要求</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="step-icon">🧠</div>
+          <div class="step-title">Agent 任务拆解</div>
+          <div class="step-desc">LLM 将复杂需求拆解为资源匹配、定价、时效评估等子任务</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="step-icon">📚</div>
+          <div class="step-title">RAG 知识检索</div>
+          <div class="step-desc">从 137 个站点知识库中检索相关规则、历史方案、价格基准</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="step-icon">⚡</div>
+          <div class="step-title">规则引擎计算</div>
+          <div class="step-desc">调用定价模型、航线成本库、运力数据进行多因子组合计算</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="step-icon">📄</div>
+          <div class="step-title">方案生成</div>
+          <div class="step-desc">综合输出推荐方案，包含推荐理由、置信度评分、备选方案</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="step-icon">✅</div>
+          <div class="step-title">人工确认执行</div>
+          <div class="step-desc">业务人员审核方案，确认/修改/驳回，反馈数据回流模型</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="workflow-panel" id="workflow-1">
+      <h3 style="margin-bottom: 0.5rem; font-size: 1rem;">核心 Prompt 设计思路</h3>
+      <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+        以下是 Agent 任务拆解节点的 Prompt 框架（脱敏简化版）
+      </p>
+      <div class="prompt-box">
+        <span class="prompt-label">Prompt Framework</span>
+        <span class="cmt">// Role: 航空货运智能采销 Agent</span><br>
+        <span class="kw">Role</span>: 你是一位资深航空货运调度专家，负责根据用户发运需求，<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;拆解任务并生成最优采销方案。<br><br>
+        <span class="kw">Context</span>: 当前站点 <span class="var">{station}</span>，可用运力 <span class="var">{capacity}</span><br>
+        <span class="kw">User Request</span>: <span class="str">{user_query}</span><br><br>
+        <span class="kw">Steps</span>:<br>
+        &nbsp;&nbsp;1. 分析货物特征（类型/重量/体积/时效要求）<br>
+        &nbsp;&nbsp;2. 检索知识库中匹配的航线规则与历史方案<br>
+        &nbsp;&nbsp;3. 调用定价模型计算成本与报价<br>
+        &nbsp;&nbsp;4. 输出 <strong>推荐方案</strong> + <strong>推荐理由</strong> + <strong>置信度</strong><br><br>
+        <span class="kw">Constraints</span>:<br>
+        &nbsp;&nbsp;- 必须考虑航班准点率与天气影响<br>
+        &nbsp;&nbsp;- 若置信度 &lt; 70%，明确标注需人工复核<br>
+        &nbsp;&nbsp;- 输出格式为结构化 JSON
+      </div>
+    </div>
+
+    <div class="workflow-panel" id="workflow-2">
+      <h3 style="margin-bottom: 0.5rem; font-size: 1rem;">AI 效果评估与迭代体系</h3>
+      <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem;">
+        为每个 AI 能力设计可量化的评估指标，形成"上线 → 追踪 → 迭代"的闭环
+      </p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+        <div class="flow-step" style="width: 100%;">
+          <div class="step-icon">📊</div>
+          <div class="step-title">方案采纳率</div>
+          <div class="step-desc">AI 推荐方案被直接采用的比例<br><strong style="color: var(--accent);">目标: ≥ 85%</strong></div>
+        </div>
+        <div class="flow-step" style="width: 100%;">
+          <div class="step-icon">✏️</div>
+          <div class="step-title">人工修改率</div>
+          <div class="step-desc">业务人员对方案进行修改的频率<br><strong style="color: var(--accent);">目标: ≤ 15%</strong></div>
+        </div>
+        <div class="flow-step" style="width: 100%;">
+          <div class="step-icon">🎯</div>
+          <div class="step-title">置信度分布</div>
+          <div class="step-desc">高置信度 (&gt;80%) 方案占比趋势<br><strong style="color: var(--accent);">目标: ≥ 70%</strong></div>
+        </div>
+        <div class="flow-step" style="width: 100%;">
+          <div class="step-icon">🔄</div>
+          <div class="step-title">迭代周期</div>
+          <div class="step-desc">基于反馈数据完成一次模型迭代的时间<br><strong style="color: var(--accent);">目标: ≤ 2 周</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Skills -->
+<section class="fade-in" id="skills">
+  <div class="section-label">Skills</div>
+  <h2 class="section-title">能力矩阵</h2>
+  <p class="section-desc">
+    按 ima 岗位需求梳理的核心能力评估
+  </p>
+
+  <div class="skills-grid">
+    <div class="skill-category">
+      <h3>🧠 AI 产品能力</h3>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">LLM + RAG + Agent 架构设计</span>
+          <span class="skill-level">Expert</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-width="92"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">Prompt Engineering</span>
+          <span class="skill-level">Expert</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">智能决策产品化（推荐/定价/调度）</span>
+          <span class="skill-level">Expert</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-width="95"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">人机协同交互设计</span>
+          <span class="skill-level">Advanced</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-width="88"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">AI 效果评估与迭代</span>
+          <span class="skill-level">Expert</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-width="93"></div></div>
+      </div>
+    </div>
+
+    <div class="skill-category">
+      <h3>🛠️ 技术与工具</h3>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">SQL / Python</span>
+          <span class="skill-level">Advanced</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">Coze / 工作流搭建</span>
+          <span class="skill-level">Advanced</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">Tableau / 数据可视化</span>
+          <span class="skill-level">Advanced</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">v0 / AI 前端原型</span>
+          <span class="skill-level">Intermediate</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-width="70"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">Axure / 产品设计</span>
+          <span class="skill-level">Expert</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-width="95"></div></div>
+      </div>
+    </div>
+
+    <div class="skill-category">
+      <h3>📐 产品方法论</h3>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">数据驱动决策</span>
+          <span class="skill-level">Expert</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-width="95"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">从 0 到 1 产品搭建</span>
+          <span class="skill-level">Expert</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-width="93"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">敏捷开发 / MVP</span>
+          <span class="skill-level">Advanced</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-width="88"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">A/B 测试</span>
+          <span class="skill-level">Advanced</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-width="82"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">Roadmap 规划</span>
+          <span class="skill-level">Expert</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+      </div>
+    </div>
+
+    <div class="skill-category">
+      <h3>🌐 行业认知</h3>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">大模型能力边界判断</span>
+          <span class="skill-level">Expert</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">海内外 AI 产品跟踪</span>
+          <span class="skill-level">Advanced</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">复杂业务场景拆解</span>
+          <span class="skill-level">Expert</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-width="95"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">策略产品平台建设</span>
+          <span class="skill-level">Expert</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-width="92"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">跨部门推动力</span>
+          <span class="skill-level">Expert</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Data Showcase -->
+<section class="fade-in" id="data">
+  <div class="section-label">Impact</div>
+  <h2 class="section-title">业务成果一览</h2>
+  <p class="section-desc">
+    所有数据均来自真实上线项目的持续跟踪
+  </p>
+
+  <div class="data-showcase">
+    <div class="data-card">
+      <div class="big-number">2.41<span class="unit">亿</span></div>
+      <div class="data-label">累计降本</div>
+      <div class="data-detail">智能寻源 + 成本诊断 + 供应商管理</div>
+    </div>
+    <div class="data-card">
+      <div class="big-number">9,700<span class="unit">万</span></div>
+      <div class="data-label">累计增收</div>
+      <div class="data-detail">智能报价 + Agent 方案 + 动态调价</div>
+    </div>
+    <div class="data-card">
+      <div class="big-number">3天 → 15<span class="unit">秒</span></div>
+      <div class="data-label">报价响应速度</div>
+      <div class="data-detail">规则引擎驱动的自动报价系统</div>
+    </div>
+    <div class="data-card">
+      <div class="big-number">85<span class="unit">%+</span></div>
+      <div class="data-label">Agent 方案采纳率</div>
+      <div class="data-detail">LLM + RAG + Agent 协同流程</div>
+    </div>
+    <div class="data-card">
+      <div class="big-number">50<span class="unit">% → 95%+</span></div>
+      <div class="data-label">风险识别准确率</div>
+      <div class="data-detail">多维度风控体系 + 关联关系图谱</div>
+    </div>
+    <div class="data-card">
+      <div class="big-number">3h → 0.5<span class="unit">h</span></div>
+      <div class="data-label">日均分析耗时</div>
+      <div class="data-detail">多维度数据归因模型 + 自动预警</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Closing -->
+<section class="closing">
+  <div class="closing-bg"></div>
+  <div class="closing-content">
+    <h2>期待在 <span class="gradient-text" style="background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">ima</span> 创造价值</h2>
+    <p>
+      "用户为本，科技向善" — 我始终相信，最好的 AI 产品不是技术最炫的，<br>
+      而是能真正理解用户意图、在复杂场景中找到最优解的。<br>
+      这正是我在过去 8 年持续做的事情。
+    </p>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <span class="icon">📱</span>
+        18380120556
+      </div>
+      <div class="contact-item">
+        <span class="icon">📧</span>
+        xhy2008521@gmail.com
+      </div>
+      <div class="contact-item">
+        <span class="icon">📍</span>
+        深圳
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Counter animation
+function animateCounters() {
+  document.querySelectorAll('.counter').forEach(counter => {
+    const target = parseFloat(counter.dataset.target);
+    const isDecimal = target % 1 !== 0;
+    const duration = 2000;
+    const start = performance.now();
+
+    function update(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = eased * target;
+
+      if (target >= 1000) {
+        counter.textContent = Math.floor(current).toLocaleString();
+      } else if (isDecimal) {
+        counter.textContent = current.toFixed(2);
+      } else {
+        counter.textContent = Math.floor(current);
+      }
+
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  });
+}
+
+// Intersection Observer for scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+
+      // Animate skill bars
+      entry.target.querySelectorAll('.skill-fill, .bar-fill').forEach(bar => {
+        setTimeout(() => {
+          bar.style.width = bar.dataset.width + '%';
+        }, 300);
+      });
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.fade-in, .timeline-item').forEach(el => observer.observe(el));
+
+// Also observe skill categories and data cards
+document.querySelectorAll('.skill-category, .data-card, .jd-card').forEach(el => {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.skill-fill, .bar-fill').forEach(bar => {
+          setTimeout(() => {
+            bar.style.width = bar.dataset.width + '%';
+          }, 200);
+        });
+      }
+    });
+  }, { threshold: 0.2 });
+  obs.observe(el);
+});
+
+// Trigger counter animation when hero is visible
+const heroObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCounters();
+      heroObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+heroObserver.observe(document.querySelector('.hero-stats'));
+
+// Scroll to section
+function scrollToSection(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Project tabs
+function switchProject(index) {
+  document.querySelectorAll('.project-tab').forEach((tab, i) => {
+    tab.classList.toggle('active', i === index);
+  });
+  document.querySelectorAll('.project-panel').forEach((panel, i) => {
+    panel.classList.toggle('active', i === index);
+  });
+}
+
+// Workflow tabs
+function switchWorkflow(index) {
+  document.querySelectorAll('.workflow-tab').forEach((tab, i) => {
+    tab.classList.toggle('active', i === index);
+  });
+  document.querySelectorAll('.workflow-panel').forEach((panel, i) => {
+    panel.classList.toggle('active', i === index);
+  });
+}
+
+// Nav active state on scroll
+const sections = document.querySelectorAll('section[id], .workflow-section');
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY + 100;
+  document.querySelectorAll('.nav-link').forEach(link => {
+    const href = link.getAttribute('onclick');
+    if (href) {
+      const id = href.match(/'([^']+)'/)?.[1];
+      const section = document.getElementById(id);
+      if (section) {
+        const top = section.offsetTop;
+        const height = section.offsetHeight;
+        link.classList.toggle('active', scrollY >= top && scrollY < top + height);
+      }
+    }
+  });
+});
+
+// Initial trigger for elements already in viewport
+window.addEventListener('load', () => {
+  document.querySelectorAll('.fade-in, .timeline-item').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight) {
+      el.classList.add('visible');
+    }
+  });
+});
+</script>
+
+</body>
+</html>
